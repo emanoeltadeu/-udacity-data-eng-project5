@@ -22,8 +22,7 @@ default_args = {
 dag = DAG('sparkify_dag',
           default_args=default_args,
           description='Load and transform data in Redshift with Airflow, from the Udacity Data Engineer Nanodegree Program',
-          schedule_interval='0 * * * *',
-          catchup = False
+          schedule_interval='0 * * * *'
         )
 
 start_operator = DummyOperator(task_id='Begin_execution',  dag=dag)
