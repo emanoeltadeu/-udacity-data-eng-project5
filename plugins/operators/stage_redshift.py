@@ -26,12 +26,16 @@ class StageToRedshiftOperator(BaseOperator):
     def execute(self, context):
         aws = AwsHook(self.aws_conn_id)
         credentials = aws.get_credentials()
+        self.log.info("Get Credentials: OK.")
+
         redshift = PostgresHook(postgres_conn_id=self.redshift_conn_id)
+        self.log.info("Connection OK.")
 
         self.log.info("Deleting data from destination Redshift table")
         redshift.run("DELETE FROM {}".format(self.table))
-        self.log.info("Copying data from S3 to Redshift")
+        self.log.info("{} table records deleted.".format(self.table))
 
+        self.log.info("Copying data from S3 to Redshift")
         if self.execution_date:
             formatted_sql = StageToRedshiftOperator.copy_sql_time.format(
                 self.table, 
@@ -56,7 +60,4 @@ class StageToRedshiftOperator(BaseOperator):
             )
 
         redshift.run(formatted_sql)
-
-
-
-
+        self.log.info("Copying data OK.")
