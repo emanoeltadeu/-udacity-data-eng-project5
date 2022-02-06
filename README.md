@@ -20,7 +20,7 @@ In the DAG, add default parameters according to these guidelines
 
 In addition, configure the task dependencies so that after the dependencies are set, the graph view follows the flow shown in the image below.
 
-![DAG!](./_project_dag.PNG "project-dag")
+![DAG!](./project_dag.png "project-dag")
 
 ### Building the operators
 To complete the project, you need to build four different operators that will stage the data, transform the data, and run checks on data quality.
